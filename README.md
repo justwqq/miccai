@@ -1,7 +1,7 @@
 # miccai
 # MDRL
 
-This is the implementation for the accepted MICCAI 2023 paper Modularity-Constrained Dynamic Representation Learning for Interpretable Brain Disorder Analysis with Functional MRI. This framework consists of three parts: (1) dynamic graph construction, (2) modularity-constrained spatiotemporal graph neural network (MSGNN) for dynamic feature learning, and (3) prediction and biomarker detection.The whole implementation is built upon [PyTorch](https://pytorch.org).
+This is the implementation for the paper Modularity-Constrained Dynamic Representation Learning for Interpretable Brain Disorder Analysis with Functional MRI. This framework consists of three parts: (1) dynamic graph construction, (2) modularity-constrained spatiotemporal graph neural network (MSGNN) for dynamic feature learning, and (3) prediction and biomarker detection.The whole implementation is built upon [PyTorch](https://pytorch.org).
 
 # Folder Structure
 
