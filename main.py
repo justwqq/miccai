@@ -21,11 +21,11 @@ PRE=[]
 REC=[]
 F1_SCORE=[]
 AUC=[]
-for fold in [1,2,3,4,5]:
-    print(fold)
+for seed in [1,2,3,4,5]:
+    print(seed)
     from sklearn.model_selection import KFold
     k = argv.k_fold
-    kfold = KFold(n_splits=k, random_state=fold, shuffle=True)
+    kfold = KFold(n_splits=k, random_state=seed, shuffle=True)
     Acc2 = []
     Sen2 = []
     Spe2 = []
@@ -90,16 +90,7 @@ for fold in [1,2,3,4,5]:
         scheduler = torch.optim.lr_scheduler.OneCycleLR(optimizer, max_lr=argv.max_lr, epochs=Ep,
                                                         steps_per_epoch=len(train_loader), pct_start=0.2,
                                                         div_factor=argv.max_lr /  Lr, final_div_factor=1000)
-        Acc = []
-        Sen = []
-        Spe = []
-        Bac = []
-        Ppv = []
-        Npv = []
-        Pre = []
-        Rec = []
-        F1_score = []
-        Auc = []
+
         for epoch in range(Ep):
             train_acc = 0.0
             train_loss = 0.0
@@ -165,105 +156,46 @@ for fold in [1,2,3,4,5]:
 
                 fpr, tpr, threshold = metrics.roc_curve(y_true, PPre_score)
                 auc = metrics.auc(fpr, tpr)
-                Acc.append(acc)
-                Sen.append(sen)
-                Spe.append(spe)
-                Bac.append(bac)
-                Ppv.append(ppv)
-                Npv.append(npv)
-                Pre.append(pre)
-                Rec.append(rec)
-                F1_score.append(f1_score)
-                Auc.append(auc)
-        Acc1 = np.mean(Acc[-1:])
-        print(Acc1)
-        print('Accmean', np.mean(Acc[-1:]))
-        print('Acc标准差', np.std(Acc[-1:], ddof=1))
-
-        Sen1 = np.mean(Sen[-1:])
-        print(Sen1)
-        print('Sen均值', np.mean(Sen[-1:]))
-        print('Sen标准差', np.std(Sen[-1:], ddof=1))
-
-        Spe1 = np.mean(Spe[-1:])
-        print(Spe1)
-        print('Spe均值', np.mean(Spe[-1:]))
-        print('Spe标准差', np.std(Spe[-1:], ddof=1))
-
-        Bac1 = np.mean(Bac[-1:])
-        print(Bac1)
-        print('Bac均值', np.mean(Bac[-1:]))
-        print('Bac标准差', np.std(Bac[-1:], ddof=1))
-
-        Ppv1 = np.mean(Ppv[-1:])
-        print(Ppv1)
-        print('Ppv均值', np.mean(Ppv[-1:]))
-        print('Ppv标准差', np.std(Ppv[-1:], ddof=1))
-
-        Npv1 = np.mean(Npv[-1:])
-        print(Npv1)
-        print('Npv均值', np.mean(Npv[-1:]))
-        print('Npv标准差', np.std(Npv[-1:], ddof=1))
-
-        Pre1 = np.mean(Pre[-1:])
-        print(Pre1)
-        print('Pre均值', np.mean(Pre[-1:]))
-        print('Pre标准差', np.std(Pre[-1:], ddof=1))
-
-        Rec1 = np.mean(Rec[-1:])
-        print(Rec1)
-        print('Rec均值', np.mean(Rec[-1:]))
-        print('Rec标准差', np.std(Rec[-1:], ddof=1))
-
-        F1_score1 = np.mean(F1_score[-1:])
-        print(F1_score1)
-        print('F1_score均值', np.mean(F1_score[-1:]))
-        print('F1_score标准差', np.std(F1_score[-1:], ddof=1))
-
-        Auc1 = np.mean(Auc[-1:])
-        print(Auc1)
-        print('Auc均值', np.mean(Auc[-1]))
-        print('Auc标准差', np.std(Auc[-1:], ddof=1))
-        Acc2.append(Acc1)
-        Sen2.append(Sen1)
-        Spe2.append(Spe1)
-        Bac2.append(Bac1)
-        Ppv2.append(Ppv1)
-        Npv2.append(Npv1)
-        Pre2.append(Pre1)
-        Rec2.append(Rec1)
-        F1_score2.append(F1_score1)
-        Auc2.append(Auc1)
+        Acc2.append(acc)
+        Sen2.append(sen)
+        Spe2.append(spe)
+        Bac2.append(bac)
+        Ppv2.append(ppv)
+        Npv2.append(npv)
+        Pre2.append(pre)
+        Rec2.append(rec)
+        F1_score2.append(f1_score)
+        Auc2.append(auc)
     avg_Acc = sum(Acc2) / k
     print(avg_Acc)
-    print('Acc2标准差', np.std(Acc2, ddof=1))
+    print('Acc2std', np.std(Acc2, ddof=1))
     avg_Sen = sum(Sen2) / k
     print(avg_Sen)
-    print('Sen2标准差', np.std(Sen2, ddof=1))
+    print('Sen2std', np.std(Sen2, ddof=1))
     avg_Spe = sum(Spe2) / k
     print(avg_Spe)
-    print('Spe2标准差', np.std(Spe2, ddof=1))
+    print('Spe2std', np.std(Spe2, ddof=1))
     avg_Bac = sum(Bac2) / k
     print(avg_Bac)
-    print('Bac2标准差', np.std(Bac2, ddof=1))
+    print('Bac2std', np.std(Bac2, ddof=1))
     avg_Ppv = sum(Ppv2) / k
     print(avg_Ppv)
-    print('Ppv2标准差', np.std(Ppv2, ddof=1))
+    print('Ppv2std', np.std(Ppv2, ddof=1))
     avg_Npv = sum(Npv2) / k
     print(avg_Npv)
-    print('Npv2标准差', np.std(Npv2, ddof=1))
+    print('Npv2std', np.std(Npv2, ddof=1))
     avg_Pre = sum(Pre2) / k
     print(avg_Pre)
-    print('Pre2标准差', np.std(Pre2, ddof=1))
+    print('Pre2std', np.std(Pre2, ddof=1))
     avg_Rec = sum(Rec2) / k
     print(avg_Rec)
-    print('Rec2标准差', np.std(Rec2, ddof=1))
+    print('Rec2std', np.std(Rec2, ddof=1))
     avg_F1_score = sum(F1_score2) / k
     print(avg_F1_score)
-    print('F1_score2标准差', np.std(F1_score2, ddof=1))
+    print('F1_score2std', np.std(F1_score2, ddof=1))
     avg_Auc = sum(Auc2) / k
     print(avg_Auc)
-    print('Auc2标准差', np.std(Auc2, ddof=1))
+    print('Auc2std', np.std(Auc2, ddof=1))
     ACC.extend([avg_Acc])
     SEN.extend([avg_Sen])
     SPE.extend([avg_Spe])
@@ -302,7 +234,7 @@ print('F1_SCOREmean', np.mean(F1_SCORE))
 print('F1_SCOREstd', np.std(F1_SCORE, ddof=1))
 
 print('AUCmean', np.mean(AUC))
-print('AUC标准差', np.std(AUC, ddof=1))
+print('AUCstd', np.std(AUC, ddof=1))
 
 
 
